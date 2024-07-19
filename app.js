@@ -23,7 +23,7 @@ const mongoURI = process.env.MONGO_URI;
 
 //add cors options
 const corsOptions = {
-    origin: 'http://localhost:3000'
+    origin: ['http://localhost:3000','https://advanced-specialised-project-1fd524002e25.herokuapp.com/dashboard']
 }
 
 app.use(cors(corsOptions));
