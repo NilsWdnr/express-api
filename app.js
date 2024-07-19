@@ -57,12 +57,7 @@ app.set('views', path.join(__dirname, '/Views'));
 const fixieData = process.env.FIXIE_SOCKS_HOST.split(new RegExp('[/(:\\/@/]+'));
 
 //mit MongoDB verbinden
-mongoose.connect(mongoURI, {
-    proxyUsername: fixieData[0],
-    proxyPassword: fixieData[1],
-    proxyHost: fixieData[2],
-    proxyPort: fixieData[3]
-})
+mongoose.connect(mongoURI)
     .then(() => {
         app.listen(port, () => {
             console.log(`App started on port ${port}`);
