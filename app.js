@@ -53,9 +53,6 @@ app.use(invalidPathHandler);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/Views'));
 
-//get fixie data
-const fixieData = process.env.FIXIE_SOCKS_HOST.split(new RegExp('[/(:\\/@/]+'));
-
 //mit MongoDB verbinden
 mongoose.connect(mongoURI)
     .then(() => {
