@@ -1,0 +1,43 @@
+<%- include('layout.ejs'); %>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 my-5">
+                <h1>Dashboard</h1>
+                <% if(query.message==="post_created"){ %>
+                    <div class="alert alert-success mt-4">Post was created successfully!</div>
+                <% } %>
+                <div class="mt-5">
+                    <div class="d-flex justify-content-between">
+                        <h3>Posts</h3>
+                        <a href="/dashboard/post/create">
+                            <button class="btn btn-secondary">create Post</button>
+                        </a>
+                    </div>
+                    <table class="table mt-4">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Author</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% posts.forEach(post=> { %>
+                                <tr>
+                                    <td>
+                                        <%= post.title %>
+                                    </td>
+                                    <td>
+                                        <%= (post.author && post.author.name) ? post.author.name : '' %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+    </html>
