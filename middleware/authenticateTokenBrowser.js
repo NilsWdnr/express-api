@@ -4,7 +4,7 @@ const authenticateTokenBrowser = (req,res,next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
     if(token===undefined){
-        return res.redirect('/dasboard/login');
+        return res.redirect('/dashboard/login');
     }
 
     jwt.verify(token,process.env.TOKEN_SECRET, (error)=>{
