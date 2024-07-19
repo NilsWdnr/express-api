@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
 app.use(invalidPathHandler);
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/Views'));
+app.set('views', path.join(__dirname, '/views'));
 
 //mit MongoDB verbinden
 mongoose.connect(mongoURI)
