@@ -9,7 +9,7 @@ const authenticateTokenAPI = (req,res,next) => {
 
     jwt.verify(token,process.env.TOKEN_SECRET, (error)=>{
         if(error){
-            return res.status(401).json({message: 'Please log in to get access.'})
+            return res.status(401).json({message: 'Authentication invalid. Please log in again.'})
         }
         next();
     })

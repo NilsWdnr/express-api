@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const invalidPathHandler = require('./middleware/invalidPathHandler');
 const rateLimiter = require('./middleware/rateLimiter');
-const authenticateTokenAPI = require('./middleware/authenticateTokenAPI');
 const dotenv = require('dotenv');
 const userRouter = require('./routes/userRouter');
 const dashboardRouter = require('./routes/dashboardRouter');
@@ -37,7 +36,7 @@ app.use(express.static('public'));
 //add rate limit
 app.use(rateLimiter);
 //routes
-app.use('/user', authenticateTokenAPI, userRouter);
+app.use('/user', userRouter);
 app.use('/post', postsRouter);
 app.use('/dashboard',dashboardRouter);
 

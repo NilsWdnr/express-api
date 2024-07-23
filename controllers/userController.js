@@ -13,7 +13,7 @@ const getUser = async (req,res) => {
 }
 
 const getUsers = async (req,res) => {
-    const users = await User.find({});
+    const users = await User.find({}).select('-password');
     res.status(200).json(users);
 }
 
@@ -40,11 +40,10 @@ const loginUser = async (req,res) => {
             return res.status(400).json({message: 'User or password incorrect.'});
         }
         
-        const passwordCorrect = await bcrypt.compare(req.body.password,user.password)
+        const passwordCorrect = await bcrypt.compare(req.body.password,user.password);
         if(passwordCorrect){
             const token = authenticateUser(user);
-            const refreshToken = generateRefreshToken(user);
-            res.status(200).json({accessToken: token, refreshToken: refreshToken});
+            res.status(200).json({accessToken: token});
         } else {
             return res.status(400).json({message: 'User or password incorrect.'});
         }
@@ -59,16 +58,7 @@ const authenticateUser = (user) => {
         name: user.name,
     }
 
-    return jwt.sign(data,process.env.TOKEN_SECRET,{expiresIn: '1m'});
-}
-
-const generateRefreshToken = (user) => {
-    const data = {
-        id: user.id,
-        name: user.name,
-    }
-
-    return jwt.sign(data,process.env.TOKEN_SECRET);
+    return jwt.sign(data,process.env.TOKEN_SECRET,{expiresIn: '4h'});
 }
 
 const updateUser = async (req,res) => {
