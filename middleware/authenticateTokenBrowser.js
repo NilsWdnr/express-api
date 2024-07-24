@@ -1,15 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateTokenBrowser = (req,res,next) => {
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = req.cookies.accessToken;
     if(token===undefined){
         return res.redirect('/dashboard/login');
     }
 
     jwt.verify(token,process.env.TOKEN_SECRET, (error)=>{
         if(error){
-            return redirect('/dashboard/login');
+            return res.redirect('/dashboard/login');
         }
         next();
     })

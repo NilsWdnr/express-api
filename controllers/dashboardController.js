@@ -37,8 +37,8 @@ const login = async (req,res) => {
     try {
         res.render('login', {
             title: 'Login',
+            message: ''
         })
-        console.log(req.body);
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -46,21 +46,31 @@ const login = async (req,res) => {
 
 const validateLogin = async (req,res) => {
     try {
-        if(req.body.email===undefined||req.body.password===undefined){
-            return res.status(400).json({message: 'Please provide email and password.'})
+        if(req.body.email===""||req.body.password===""){
+            return res.render('login', {
+                title: 'Login',
+                message: 'Please enter email and password.'
+            })
         }
 
         const user = await User.findOne({email: req.body.email});
         if(user===null){
-            return res.status(400).json({message: 'User or password incorrect.'});
+            return res.render('login', {
+                title: 'Login',
+                message: 'User or password incorrect.'
+            })
         }
         
         const passwordCorrect = await bcrypt.compare(req.body.password,user.password);
         if(passwordCorrect){
             const token = authenticateUser(user);
-            res.status(200).json({accessToken: token});
+            res.cookie('accessToken',token);
+            res.redirect('/dashboard');
         } else {
-            return res.status(400).json({message: 'User or password incorrect.'});
+            return res.render('login', {
+                title: 'Login',
+                message: 'User or password incorrect.'
+            })
         }
     } catch (error) {
         res.status(500).json({message: error.message});

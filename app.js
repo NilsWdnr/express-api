@@ -9,6 +9,7 @@ const dashboardRouter = require('./routes/dashboardRouter');
 const postsRouter = require('./routes/postsRouter');
 const path = require('path');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 //neue Instanz von Express erstellen
 const app = express();
@@ -24,9 +25,7 @@ const mongoURI = process.env.MONGO_URI;
 const corsOptions = {
     origin: ['http://localhost:3000','https://advanced-specialised-project-1fd524002e25.herokuapp.com/dashboard']
 }
-
 app.use(cors(corsOptions));
-
 //add body-parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 //use json
@@ -35,6 +34,8 @@ app.use(express.json());
 app.use(express.static('public'));
 //add rate limit
 app.use(rateLimiter);
+//add cookie-parsing
+app.use(cookieParser());
 //routes
 app.use('/user', userRouter);
 app.use('/post', postsRouter);
