@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateTokenBrowser = (req,res,next) => {
-    const token = req.cookies.accessToken;
+    const token = req.session.accessToken;
     if(token===undefined){
         return res.redirect('/dashboard/login');
     }

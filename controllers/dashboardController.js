@@ -64,7 +64,7 @@ const validateLogin = async (req,res) => {
         const passwordCorrect = await bcrypt.compare(req.body.password,user.password);
         if(passwordCorrect){
             const token = authenticateUser(user);
-            res.cookie('accessToken',token);
+            req.session.accessToken = token;
             res.redirect('/dashboard');
         } else {
             return res.render('login', {

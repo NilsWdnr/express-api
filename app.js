@@ -9,7 +9,7 @@ const dashboardRouter = require('./routes/dashboardRouter');
 const postsRouter = require('./routes/postsRouter');
 const path = require('path');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 //neue Instanz von Express erstellen
 const app = express();
@@ -34,8 +34,12 @@ app.use(express.json());
 app.use(express.static('public'));
 //add rate limit
 app.use(rateLimiter);
-//add cookie-parsing
-app.use(cookieParser());
+//add session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+}))
 //routes
 app.use('/user', userRouter);
 app.use('/post', postsRouter);
