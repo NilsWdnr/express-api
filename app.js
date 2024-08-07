@@ -40,6 +40,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
+
 //routes
 app.use('/user', userRouter);
 app.use('/post', postsRouter);
