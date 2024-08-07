@@ -21,27 +21,27 @@ dotenv.config();
 const port = process.env.PORT;
 const mongoURI = process.env.MONGO_URI;
 
-//add cors options
+//cors Optionen
 const corsOptions = {
     origin: ['http://localhost:3000','https://advanced-specialised-project-1fd524002e25.herokuapp.com/dashboard']
 }
 app.use(cors(corsOptions));
-//add body-parsing
+//Body-Parsing hinzufügen
 app.use(bodyParser.urlencoded({ extended: true }));
-//use json
+//JSON Middleware hinzufügen
 app.use(express.json());
-//allow loading assets from public folder
+// Assets aus dem public Ordner laden
 app.use(express.static('public'));
-//add rate limit
+// Rate Limiter geladen
 app.use(rateLimiter);
-//add session
+// Session middleware hinzugefügt
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
 
-//routes
+//Routes
 app.use('/user', userRouter);
 app.use('/post', postsRouter);
 app.use('/dashboard',dashboardRouter);

@@ -3,8 +3,6 @@ const userRouter = Router();
 const userController = require('../controllers/userController');
 const authenticateTokenAPI = require('../middleware/authenticateTokenAPI');
 
-//routes nicht case sensitive
-// nach alternativen suchen statt alle routes hier
 userRouter.get('/get/all',authenticateTokenAPI,userController.getUsers);
 userRouter.get('/get/:id',authenticateTokenAPI,userController.getUser);
 userRouter.post('/add',authenticateTokenAPI,userController.createUser);

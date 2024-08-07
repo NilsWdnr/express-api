@@ -29,7 +29,7 @@ const savePost = async (req,res) => {
         await Post.create(req.body);
         res.redirect('/dashboard?message=post_created');
     } catch (error) {
-        //todo: catch error
+        res.status(500).json({message: error.message});
     }
 }
 
